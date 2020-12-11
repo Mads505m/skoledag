@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Spil</title>
+    <style>
+    	/* * { padding: 0; margin: 0; } */
+    	canvas { background: #eee; display: block; margin: 0 auto; }
+    </style>
+</head>
+<body>
+
+<canvas id="myCanvas" width="480" height="320"></canvas> 
+
+<script>
+
+var bredde = "480"
+var height = "320"
+var canvas = document.getElementById("myCanvas"); //Variabel med canvas 
+var ctx = canvas.getContext("2d"); //Context variabel
+var x = canvas.width/2; //startposition af bold
+var y = 0; //startposition af bold
+var dx = 2;
+var dy = -2;
+var radius = 20;
+var score = 0;
+    
+
+var firkantheight = "30";
+var firkantbredde = "30";
+var firkantx = (bredde / 2) - (firkantbredde / 2)
+var firkanty = height - firkantheight
+var Rightpil = false;
+var Venstrepil = false;
+    
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+
+function keyDownHandler(e) {
+    if(e.key == "Right" || e.key == "ArrowRight") {
+        Rightpil = true;
+    }
+    else if(e.key == "Left" || e.key == "ArrowLeft") {
+        Venstrepil = true;
+    }
+}
+
+function keyUpHandler(e) {
+    if(e.key == "Right" || e.key == "ArrowRight") {
+        Rightpil = false;
+    }
+    else if(e.key == "Left" || e.key == "ArrowLeft") {
+        Venstrepil = false;
+    }
+}
+
+
+function bolden() { //tegner bold
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI*2);
+    ctx.fillStyle = "#32CD32";
+    ctx.fill();
+    ctx.closePath();
+}
+
+
+function drawfirkant () {
+    ctx.beginPath();
+    ctx.rect(firkantx, firkanty, firkantbredde, firkantheight);
+    ctx.fillStyle = "#0000CD";
+    ctx.fill();
+    ctx.closePath();
+}
+    
+function draw() {  //tegner baggrunden og bold - så det ikke bliver en lang linje
+    ctx.clearRect(0, 0, canvas.width, canvas.height); //baggrund
+    bolden(); //kalder bold
+    drawfirkant(); //kalder firkant
+    if(y + dy < 0) { //Gør at bolden ikke ryger ud over bund
+    dy = -dy;
+}
+    if(y + dy > height ) {//Gør at bolden ikke ryger ud over top 
+    dy = -dy;
+}
+    if(x + dx < 0) { //Gør at bolden ikke ryger ud over siderne
+    dx = -dx;
+}
+    if(x + dx > bredde ) { //Gør at bolden ikke ryger ud over siderne
+    dx = -dx;
+}
+  
+     if(Rightpil) {
+        firkantx += 2;
+        if (firkantx + firkantbredde > bredde){
+            firkantx = bredde - firkantbredde;
+        }
+    }
+    else if(Venstrepil) {
+        firkantx -= 2;
+        if (firkantx < 0){
+            firkantx = 0;
+        }
+    }
+   
+    
+    x += dx; //får bolden til at bevæge sig
+    y += dy; //får bolden til at bevæge sig
+    
+    if ((x > firkantx && x < firkantx + firkantbredde) && (y + radius >= firkanty )) {
+    dx *= -1;  // får bolden til at vende 
+    dy *= -1; 
+    /*score ++; //tæller op med en */ //virker ikke endnu
+
+
+}
+
+    
+}
+
+setInterval(draw, 10); //kalder funktionerne
+</script> 
+
+</body>
+</html>

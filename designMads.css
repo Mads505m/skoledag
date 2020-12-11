@@ -1,0 +1,56 @@
+
+/* Så jeg laver størrelsen af hele firkanten her*/
+:root {
+--firkant-size: 200px;
+}
+
+
+/* platformen */
+.firkant {
+    /* Her siger jeg hvor boksen skal være i x og y akse */
+  width: 100vw;
+  height: 100vh;
+    /* Her gør jeg så den er i midten og ikke helt ude i venstre side*/
+  display: grid;
+    /* Dette gør så de ikke er i 3 lodrette og vandrette dele*/
+  justify-content: center;
+  align-content: center;
+/* her giver jeg den formen som en firkant, siger den skal have 3 firkantet i både x og y retning :) */
+  grid-template-columns: repeat(3, auto)
+
+}
+
+.firkant div {
+/* her gør laver jeg bare firkanternes størrelse*/
+width: var(--firkant-size);
+height: var(--firkant-size);
+/* dens farve*/
+background-color: white;
+border: 1px solid green;
+}
+  
+.SpillerX {
+    background-image: url(Et.x.jpg)
+}
+
+.SpillerO {
+    background-image: url(Et.o.jpg)
+}
+
+/*Vinde besked design*/
+.vinde {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  justify-content: center;
+  align-items: center;
+  font-size: 5rem;
+  flex-direction: column;
+}
+/* gør så teksten kommer frem*/
+.vinde.show {
+  display: flex;
+}
