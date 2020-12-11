@@ -62,6 +62,7 @@
         
     }
      }
+//Her så siger jeg bare at den skal gennemgå alle de mulige metoder at vinde på
 function TjekingomVundet(nuvaerneSpiller) {
   return vindemetoder.some(forskelligetilfaelde => {
     return forskelligetilfaelde.every(index => {
